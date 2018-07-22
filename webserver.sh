@@ -7,3 +7,6 @@ docker run -it --rm --name certbot docker.io/certbot/certbot certonly --email bk
 #
 # https://www.tenormanmike.com/website-and-hosting-issues/how-to-install-a-lets-encrypt-ssl-on-a-shared-godaddy-hosting-account/
 #
+# Easy way to create a cert for an existing web server.
+#
+# https://zerossl.com/
