@@ -16,4 +16,6 @@
 
 docker run -it --rm --name certbot docker.io/certbot/certbot certonly --manual --preferred-challenges http --email bkozdemba@gmail.com -d presto.eadgbe.net --agree-tos --dry-run
 
+# Renewal - This will command will examine /etc/letsencrypt on the host for exsiting certs and renew ones that are aproaching expiration.
+docker run -it --rm --name certbot -v /etc/letsencrypt:/etc/letsencrypt docker.io/certbot/certbot renew
 
