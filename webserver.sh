@@ -15,6 +15,9 @@
 # Host                  TXT
 # _acme-challenge.triad 9GAGvZCW86S_SX4_y0Yjy220Ffdw3X6jYSOBiWo
 
+# DNS method via command line:
+
+docker run -it --rm --name certbot docker.io/certbot/certbot certonly --manual --preferred-challenges dns --email bkozdemba@gmail.com -d presto.eadgbe.net --agree-tos --dry-run
 
 # https://certbot.eff.org/docs/using.html#plugins
 
@@ -22,8 +25,8 @@
 # put into a working web server's directory. The certs are created in the container so the /etc/letsencrypt directory must
 # be copied or host mounted to save the certs.
 
-docker run -it --rm --name certbot docker.io/certbot/certbot certonly --manual --preferred-challenges http --email bkozdemba@gmail.com -d presto.eadgbe.net --agree-tos --dry-run
+# docker run -it --rm --name certbot docker.io/certbot/certbot certonly --manual --preferred-challenges http --email bkozdemba@gmail.com -d presto.eadgbe.net --agree-tos --dry-run
 
 # Renewal - This will command will examine /etc/letsencrypt on the host for exsiting certs and renew ones that are aproaching expiration.
-docker run -it --rm --name certbot -v /etc/letsencrypt:/etc/letsencrypt docker.io/certbot/certbot renew
+# docker run -it --rm --name certbot -v /etc/letsencrypt:/etc/letsencrypt docker.io/certbot/certbot renew
 
