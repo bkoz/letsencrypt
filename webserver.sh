@@ -7,11 +7,14 @@
 # Easy way to create a cert for an existing web server (--manual) using ZeroSSL's web interface.
 # To renew, copy and paste in the CSR.
 # https://zerossl.com/
-
+#
+# DNS method via the above web site.
+#
 # Create the TXT record in DNS. On Godaddy, omit the .eadgbe.net domain in the record. Example:
 #
 # Host                  TXT
 # _acme-challenge.triad 9GAGvZCW86S_SX4_y0Yjy220Ffdw3X6jYSOBiWo
+
 
 # https://certbot.eff.org/docs/using.html#plugins
 
