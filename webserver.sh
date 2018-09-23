@@ -8,6 +8,11 @@
 # To renew, copy and paste in the CSR.
 # https://zerossl.com/
 
+# Create the TXT record in DNS. On Godaddy, omit the .eadgbe.net domain in the record. Example:
+#
+# Host                  TXT
+# _acme-challenge.triad 9GAGvZCW86S_SX4_y0Yjy220Ffdw3X6jYSOBiWo
+
 # https://certbot.eff.org/docs/using.html#plugins
 
 # Manual method from a docker container. It will geneate the challenge key and filename that you need to 
