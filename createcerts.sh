@@ -4,10 +4,12 @@
 # https://raw.githubusercontent.com/jaredhocutt/openshift-provision/master/playbooks/roles/install_openshift/tasks/certs.yml
 #
 #
-# Export the following env vars before running this script.
+# =>: Backup /etc/letsencrypt before running this script.
 #
-# export AWS_ACCESS_KEY_ID 
-# export AWS_SECRET_ACCESS_KEY 
+# =>: Export the following env vars before running this script.
+#
+# export AWS_ACCESS_KEY_ID= 
+# export AWS_SECRET_ACCESS_KEY= 
 #
 
 openshift_public_hostname="koz-nash.redhatgov.io"
