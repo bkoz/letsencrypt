@@ -4,8 +4,12 @@
 # https://raw.githubusercontent.com/jaredhocutt/openshift-provision/master/playbooks/roles/install_openshift/tasks/certs.yml
 #
 #
-# Set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY env vars before running this script.
+# Export the following env vars before running this script.
 #
+# export AWS_ACCESS_KEY_ID 
+# export AWS_SECRET_ACCESS_KEY 
+#
+
 openshift_public_hostname="koz-nash.redhatgov.io"
 openshift_subdomain="*.apps.koz-nash.redhatgov.io"
 cert_email_address="bkozdemba@gmail.com"
@@ -14,13 +18,15 @@ mkdir /etc/letsencrypt
 chmod -R 555 /etc/letsencrypt
 
 echo "Variables"
+echo 
 echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
 echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
 echo "cert_email_address=$cert_email_address"
 echo "openshift_public_hostname=$openshift_public_hostname"
 echo "openshift_subdomain=$openshift_subdomain"
-
+echo
 echo "Generating a single cert w/multiple domains..."
+echo
 
 docker run --rm --name certbot\
     -v "/etc/letsencrypt:/etc/letsencrypt:z"\
@@ -41,13 +47,16 @@ docker run --rm --name certbot\
 # Updating OpenShift with the new certs.
 #
 
+# KB Articles
+# https://access.redhat.com/articles/3345491
+
 # Router
-ansible-playbook playbooks/openshift-hosted/redeploy-router-certificates.yml
+# ansible-playbook playbooks/openshift-hosted/redeploy-router-certificates.yml
 
 # Web console
 
 # Bugs
-https://access.redhat.com/solutions/3998521
-https://access.redhat.com/solutions/3488911
+# https://access.redhat.com/solutions/3998521
+# https://access.redhat.com/solutions/3488911
 
 
