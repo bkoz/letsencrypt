@@ -62,7 +62,8 @@ docker run --rm --name certbot\
 # Router
 # ansible-playbook playbooks/openshift-hosted/redeploy-router-certificates.yml
 
-# Web console
+# Public API
+# https://access.redhat.com/articles/3345491#masterapipublicredeploy
 
 # Bugs
 # https://access.redhat.com/solutions/3998521
