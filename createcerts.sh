@@ -49,6 +49,11 @@ docker run --rm --name certbot\
 # Updating OpenShift with the new certs.
 #
 
+# See [this doc](https://docs.openshift.com/container-platform/3.11/install_config/certificate_customization.html)
+# for how to manually update public API certs and router 
+# certs.
+
+
 # KB Articles
 # https://access.redhat.com/articles/3345491
 
