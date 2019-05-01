@@ -4,14 +4,50 @@
 
 The ```letsencrypt``` util and [zerossl](https://zerossl.com/) web site generate the following files:
 
+### zerossl
+
 account-key.txt - Account key
 
 domain-key.txt - Private key or ```privkey.pem```.
 
-domain-crt.txt - A bundle that contains the cert followed by the CA. This should be broken apart
-into separate certs (main cert and CA) with a text editor. Also called ```fullchain.pem```. 
+domain-crt.txt - Also called ```fullchain.pem```. A bundle that contains the cert followed by the CA. This should be broken apart
+
+into separate certs (main cert.pem and chain.pem (CA cert)) with a text editor. 
 
 domain-csr.txt - Cert signing request (keep for renewal).
+
+### letsencrypt binary output
+
+privkey.pem - Private key
+
+chain.pem - CA cert
+
+cert.pem - Main Cert
+
+fullchain.pem - Main + CA cert combo
+
+### OpenShift
+
+#### Router
+
+/etc/origin/master
+
+privkey.pem - Private key
+
+chain.pem - CA cert
+
+cert.pem - Main Cert
+
+#### API
+
+/etc/origin/master/named_certificates
+
+fullchain.pem - Main cert + CA cert
+
+privkey.pem   - Private key
+
+
+### Debugging
 
 Human readable output example.
 
