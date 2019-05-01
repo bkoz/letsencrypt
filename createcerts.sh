@@ -71,3 +71,4 @@ docker run --rm --name certbot\
 
 # Debugging router certs
 # https://access.redhat.com/articles/3183181
+# https://access.redhat.com/articles/3663751
