@@ -10,9 +10,7 @@ account-key.txt - Account key
 
 domain-key.txt - Private key or ```privkey.pem```.
 
-domain-crt.txt - Also called ```fullchain.pem```. A bundle that contains the cert followed by the CA. This should be broken apart
-
-into separate certs (main cert.pem and chain.pem (CA cert)) with a text editor. 
+domain-crt.txt - Also called ```fullchain.pem```. A bundle that contains the cert followed by the CA. This should be broken apartvinto separate certs (main cert.pem and chain.pem (CA cert)) with a text editor. 
 
 domain-csr.txt - Cert signing request (keep for renewal).
 
