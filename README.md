@@ -6,6 +6,26 @@ The ```letsencrypt``` util and [zerossl](https://zerossl.com/) web site generate
 
 ### zerossl
 
+This is online tool is useful when the letsencrypt util will not renew because it is too early.
+
+Copy/paste CSR from /etc/letsencrypt/csr/0000_csr-certbot.pem into web site
+
+Create TXT records in Route53
+
+Allow 5 minutes or so to let the records propagate.
+
+Test the TXT records
+[ec2-user@ip-172-33-18-62 new-certs]$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
+_acme-challenge.koz-certtest.redhatgov.io descriptive text "ZepiokcmBUXZuiwV67hH54hPxhYWiw8677BuL5CfwJI"
+[ec2-user@ip-172-33-18-62 new-certs]$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
+_acme-challenge.koz-certtest.redhatgov.io descriptive text "ZepiokcmBUXZuiwV67hH54hPxhYWiw8677BuL5CfwJI"
+
+Copy cert into fullchain.txt
+
+Split out the cert and CA into separate files.
+
+
+
 account-key.txt - Account key
 
 domain-key.txt - Private key or ```privkey.pem```.
