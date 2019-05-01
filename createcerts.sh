@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# Based on Jared's certbot ansible role.
+# Upgrade letsencrypt certs on the master.
+#
+# This is sased on Jared's certbot ansible role.
 # https://raw.githubusercontent.com/jaredhocutt/openshift-provision/master/playbooks/roles/install_openshift/tasks/certs.yml
 #
 #
@@ -12,12 +14,16 @@
 # export AWS_SECRET_ACCESS_KEY= 
 #
 
+#
+# Edit the following to reflect your cluster
+#
 openshift_public_hostname="koz-nash.redhatgov.io"
 openshift_subdomain="*.apps.koz-nash.redhatgov.io"
 cert_email_address="bkozdemba@gmail.com"
 
-mkdir /etc/letsencrypt
-chmod -R 555 /etc/letsencrypt
+For an upgrade, these dirs should already exist.
+# mkdir /etc/letsencrypt
+# chmod -R 555 /etc/letsencrypt
 
 echo "Variables"
 echo 
@@ -49,10 +55,6 @@ docker run --rm --name certbot\
 # Updating OpenShift with the new certs.
 #
 
-# See [this doc](https://docs.openshift.com/container-platform/3.11/install_config/certificate_customization.html)
-# for how to manually update public API certs and router 
-# certs.
-
 
 # KB Articles
 # https://access.redhat.com/articles/3345491
@@ -66,4 +68,5 @@ docker run --rm --name certbot\
 # https://access.redhat.com/solutions/3998521
 # https://access.redhat.com/solutions/3488911
 
-
+# Debugging router certs
+# https://access.redhat.com/articles/3183181
