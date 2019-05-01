@@ -44,6 +44,7 @@ fullchain.pem - Main cert + CA cert
 
 privkey.pem   - Private key
 
+/usr/local/bin/master-restart api
 
 ### Debugging
 
