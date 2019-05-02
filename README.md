@@ -15,16 +15,18 @@ Create TXT records in Route53
 Allow 5 minutes or so to let the records propagate.
 
 Test the TXT records
-[ec2-user@ip-172-33-18-62 new-certs]$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
+
+```
+$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
 _acme-challenge.koz-certtest.redhatgov.io descriptive text "ZepiokcmBUXZuiwV67hH54hPxhYWiw8677BuL5CfwJI"
-[ec2-user@ip-172-33-18-62 new-certs]$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
+
+$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
 _acme-challenge.koz-certtest.redhatgov.io descriptive text "ZepiokcmBUXZuiwV67hH54hPxhYWiw8677BuL5CfwJI"
+```
 
-Copy cert into fullchain.txt
+Copy the cert into fullchain.txt
 
-Split out the cert and CA into separate files.
-
-
+Edit this file and split out the cert and CA into separate files.
 
 account-key.txt - Account key
 
