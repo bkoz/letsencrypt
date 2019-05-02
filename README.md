@@ -56,15 +56,26 @@ chain.pem - CA cert
 
 cert.pem - Main Cert
 
+```
+cp cert.pem /etc/letsencrypt/archive/koz-certtest.redhatgov.io/cert1.pem
+cp chain.pem /etc/letsencrypt/archive/koz-certtest.redhatgov.io/chain1.pem
+cp fullchain.pem /etc/letsencrypt/archive/koz-certtest.redhatgov.io/fullchain1.pem
+
+ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/openshift-hosted/redeploy-router-certificates.yml
+```
+
 #### API
 
-/etc/origin/master/named_certificates
 
 fullchain.pem - Main cert + CA cert
 
 privkey.pem   - Private key
 
+```
+cp fullchain.pem /etc/origin/master/named_certificates
+
 /usr/local/bin/master-restart api
+```
 
 ### Debugging
 
