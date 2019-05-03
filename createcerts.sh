@@ -60,6 +60,12 @@ docker run --rm --name certbot\
 # https://access.redhat.com/articles/3345491
 
 # Router
+
+# Check that the new certs have the correct ACLs.
+# If not, use getfacl <from-filename> | setfacl --set-file=- <to-filename> to make
+# them the same as the originals.
+
+# Run this playbook.
 # ansible-playbook playbooks/openshift-hosted/redeploy-router-certificates.yml
 
 # Public API
