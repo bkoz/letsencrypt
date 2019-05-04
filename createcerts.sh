@@ -1,12 +1,19 @@
 #!/bin/bash
 #
-# Upgrade letsencrypt certs on the master.
+# Renew the letsencrypt certs on the OpenShift v3.11.43 master and router.
 #
-# This is sased on Jared's certbot ansible role.
+# This script will only renew the certs. See the manual steps below update the 
+# OpenShift API server and router with the new certs. 
+# 
+
+#
+# This is based on Jared's certbot ansible role.
 # https://raw.githubusercontent.com/jaredhocutt/openshift-provision/master/playbooks/roles/install_openshift/tasks/certs.yml
 #
+
 #
 # =>: Backup /etc/letsencrypt before running this script.
+# =>: Backup /etc/origin before running this script.
 #
 # =>: Export the following env vars before running this script.
 #
@@ -21,7 +28,7 @@ openshift_public_hostname="koz-nash.redhatgov.io"
 openshift_subdomain="*.apps.koz-nash.redhatgov.io"
 cert_email_address="bkozdemba@gmail.com"
 
-For an upgrade, these dirs should already exist.
+# For a cert renewal, these dirs should already exist. However, the ACLs will need to be correct (see below).
 # mkdir /etc/letsencrypt
 # chmod -R 555 /etc/letsencrypt
 
@@ -29,11 +36,13 @@ echo "Variables"
 echo 
 echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
 echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+echo
 echo "cert_email_address=$cert_email_address"
+echo 
+echo "Generating a single cert for the following domains:"
+echo
 echo "openshift_public_hostname=$openshift_public_hostname"
 echo "openshift_subdomain=$openshift_subdomain"
-echo
-echo "Generating a single cert w/multiple domains..."
 echo
 
 docker run --rm --name certbot\
@@ -52,29 +61,35 @@ docker run --rm --name certbot\
     --domain $openshift_subdomain
 
 #
-# Updating OpenShift with the new certs.
+# Updating OpenShift with the new certs. This should be an ansible playbook.
 #
 
-
-# KB Articles
-# https://access.redhat.com/articles/3345491
-
-# Router
-
-# Check that the new certs have the correct ACLs.
-# If not, use getfacl <from-filename> | setfacl --set-file=- <to-filename> to make
-# them the same as the originals.
-
-# Run this playbook.
-# ansible-playbook playbooks/openshift-hosted/redeploy-router-certificates.yml
-
+#
 # Public API
-# https://access.redhat.com/articles/3345491#masterapipublicredeploy
+#
+# Refer to https://access.redhat.com/articles/3345491#masterapipublicredeploy
+#
+# To restart the API server:
+# # /usr/local/bin/master-restart api (it should return a 2)
+#
+# The master may have to have it's OS rebooted if the API services won't successfully restart.
+
+#
+# Router
+#
+
+# Refer to https://access.redhat.com/articles/3345491
+
+# As root, set the correct ACLs so the ec2-user can read the certs.
+# # setfacl -R -m u:ec2-user:rx /etc/letsencrypt
+
+# As the ec2-user, run this playbook.
+# $ ansible-playbook playbooks/openshift-hosted/redeploy-router-certificates.yml
+
+# Debugging router certs and gathering master logs
+# https://access.redhat.com/articles/3183181
+# https://access.redhat.com/articles/3663751
 
 # Bugs
 # https://access.redhat.com/solutions/3998521
 # https://access.redhat.com/solutions/3488911
-
-# Debugging router certs
-# https://access.redhat.com/articles/3183181
-# https://access.redhat.com/articles/3663751
