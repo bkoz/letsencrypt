@@ -24,11 +24,15 @@
 #
 # Edit the following to reflect your cluster
 #
-openshift_public_hostname="koz-nash.redhatgov.io"
-openshift_subdomain="*.apps.koz-nash.redhatgov.io"
+openshift_public_hostname="koz-certtest.redhatgov.io"
+openshift_subdomain="*.apps.koz-certtest.redhatgov.io"
 cert_email_address="bkozdemba@gmail.com"
 
+<<<<<<< HEAD
+# For an upgrade, these dirs should already exist.
+=======
 # For a cert renewal, these dirs should already exist. However, the ACLs will need to be correct (see below).
+>>>>>>> 387eaa6474c609b4bc2729fe569cffafb7cda1d3
 # mkdir /etc/letsencrypt
 # chmod -R 555 /etc/letsencrypt
 
