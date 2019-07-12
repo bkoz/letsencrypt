@@ -2,7 +2,7 @@ Letsencrypt cert update 7/9/2019 for OpenShift v3.11
 
 1) export AWS Credential variables
 
-2) Edit and run the script.
+2) Edit and run the script to renew the certs.
 
 ```
 # sh ./updatecerts.sh 
