@@ -32,7 +32,7 @@ total 32
 -rw-r-x---+ 1 root root 1704 Apr 30 03:10 privkey1.pem
 -rw-r-x---. 1 root root 1704 Jul  9 19:04 privkey2.pem
 ```
-New symbolic links should get created.
+New symbolic links should get created by the tool.
 
 ```
 # ls -l /etc/letsencrypt/live/koz-certtest.redhatgov.io/
