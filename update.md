@@ -74,5 +74,5 @@ Router
 ```
 6) Run the playbook.
 ```
-$ ansible-playbook playbooks/openshift-hosted/redeploy-router-certificates.yml
+$ ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/openshift-hosted/redeploy-router-certificates.yml
 ```
