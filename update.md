@@ -18,7 +18,7 @@ Generating a single cert w/multiple domains...
    again. To non-interactively renew *all* of your certificates, run
    "certbot renew"
 ```
-The new certs (cert2.pem, chain2.pem, fullchain2.pem and privkey2.pem) get put into 
+The new certs (```cert2.pem```, ```chain2.pem```, ```fullchain2.pem``` and ```privkey2.pem```) get put into 
 the following directory.
 ```
 # ls -l /etc/letsencrypt/archive/koz-certtest.redhatgov.io/
@@ -32,7 +32,7 @@ total 32
 -rw-r-x---+ 1 root root 1704 Apr 30 03:10 privkey1.pem
 -rw-r-x---. 1 root root 1704 Jul  9 19:04 privkey2.pem
 ```
-New symb-links should get created.
+New symbolic links should get created.
 
 ```
 # ls -l /etc/letsencrypt/live/koz-certtest.redhatgov.io/
@@ -44,7 +44,7 @@ lrwxrwxrwx. 1 root root  52 Jul  9 19:04 privkey.pem -> ../../archive/koz-certte
 ```
 
 Confirm the Ansible inventory file points to the correct location
-for the new certs (/etc/letsencrypt/live/koz-certtest.redhatgov.io)
+for the new certs (```/etc/letsencrypt/live/koz-certtest.redhatgov.io```)
 
 API
 ---
