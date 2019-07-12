@@ -65,7 +65,7 @@ API
 Router
 ------
 
-5) Set ACLs
+5) Set ACLs (you can also copy the old certs file ACLs- see the ```setfacl(1)``` man page)
 ```
 # setfacl -m u:ec2-user:rx /etc/letsencrypt/archive/koz-certtest.redhatgov.io/fullchain2.pem
 # setfacl -m u:ec2-user:rx  /etc/letsencrypt/archive/koz-certtest.redhatgov.io/chain2.pem
