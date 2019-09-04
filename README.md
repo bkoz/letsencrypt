@@ -1,6 +1,6 @@
 # letsencrypt
 
-## Notes
+## Notes on installing and replacing letsencrypt certs on OpenShift.
 
 The ```letsencrypt``` util and [zerossl](https://zerossl.com/) web site generate the following files:
 
@@ -28,23 +28,23 @@ Copy the cert into fullchain.txt
 
 Edit this file and split out the cert and CA into separate files.
 
-account-key.txt - Account key
+```account-key.txt``` - Account key
 
-domain-key.txt - Private key or ```privkey.pem```.
+```domain-key.txt``` - Private key or ```privkey.pem```.
 
-domain-crt.txt - Also called ```fullchain.pem```. A bundle that contains the cert followed by the CA. This should be broken apart into separate certs (main cert.pem and chain.pem (CA cert)) with a text editor. 
+```domain-crt.txt``` - Also called ```fullchain.pem```. A bundle that contains the cert followed by the CA. This should be broken apart into separate certs (main cert.pem and chain.pem (CA cert)) with a text editor. 
 
-domain-csr.txt - Cert signing request (keep for renewal).
+```domain-csr.txt``` - Cert signing request (keep for renewal).
 
 ### letsencrypt binary output
 
-privkey.pem - Private key
+```privkey.pem``` - Private key
 
-chain.pem - CA cert
+```chain.pem``` - CA cert
 
-cert.pem - Main Cert
+```cert.pem``` - Main Cert
 
-fullchain.pem - Main + CA cert combo
+```fullchain.pem``` - Main + CA cert combo
 
 How to check that a private key matches the cert.
 
@@ -62,13 +62,13 @@ openssl rsa -noout -modulus -in privkey.pem | openssl md5
 
 #### Router
 
-/etc/origin/master
+dir: ```/etc/origin/master```
 
-privkey.pem - Private key
+```privkey.pem``` - Private key
 
-chain.pem - CA cert
+```chain.pem``` - CA cert
 
-cert.pem - Main Cert
+```cert.pem``` - Main Cert
 
 ```
 cp cert.pem /etc/letsencrypt/archive/koz-certtest.redhatgov.io/cert1.pem
@@ -80,10 +80,9 @@ ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/openshift-hosted
 
 #### API
 
+```fullchain.pem``` - Main cert + CA cert
 
-fullchain.pem - Main cert + CA cert
-
-privkey.pem   - Private key
+```privkey.pem``` - Private key
 
 ```
 cp fullchain.pem /etc/origin/master/named_certificates
@@ -93,7 +92,7 @@ cp fullchain.pem /etc/origin/master/named_certificates
 
 ### Debugging
 
-Human readable output example.
+Getting human readable output.
 
 ```
 $ openssl x509 -noout -text -in domain-crt.txt 
@@ -103,7 +102,6 @@ Checking a cert's signing chain.
 
 ```
 $ openssl crl2pkcs7 -nocrl -certfile domain-crt-bundle.txt | openssl pkcs7 -print_certs -noout
-
 
 subject=CN = koz-test.redhatgov.io
 
