@@ -4,9 +4,18 @@
 
 The ```letsencrypt``` util and [zerossl](https://zerossl.com/) web site generate the following files:
 
+account-key.txt - Account key
+
+domain-key.txt - Private key or ```privkey.pem```.
+
+domain-crt.txt - A bundle that contains the cert followed by the CA. This should be broken apart
+into separate certs (main cert and CA) with a text editor. Also called ```fullchain.pem```. 
+
+domain-csr.txt - Cert signing request (keep for renewal).
+
 ### zerossl
 
-This is online tool is useful when the letsencrypt util will not renew because it is too early.
+This online tool is useful when the letsencrypt util will not renew because it is too early.
 
 Copy/paste CSR from /etc/letsencrypt/csr/0000_csr-certbot.pem into web site
 
