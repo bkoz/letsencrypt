@@ -120,3 +120,9 @@ subject=C = US, O = Let's Encrypt, CN = Let's Encrypt Authority X3
 
 issuer=O = Digital Signature Trust Co., CN = DST Root CA X3
 ```
+
+#### Obtaining the cert from a running site.
+
+```
+echo | openssl s_client -showcerts -servername gnupg.org -connect gnupg.org:443 2>/dev/null | openssl x509 -inform pem -noout -text
+```
