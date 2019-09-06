@@ -15,44 +15,53 @@ domain-csr.txt - Cert signing request (keep for renewal).
 
 ### zerossl
 
+#### Online web tool
+
 This online tool is useful when the letsencrypt util will not renew because it is too early.
 
-Copy/paste CSR from /etc/letsencrypt/csr/0000_csr-certbot.pem into web site
+Choose DNS verification and accept terms.
 
-Create TXT records in Route53
+Copy/paste CSR from /etc/letsencrypt/csr/0000_csr-certbot.pem into web site OR
+enter domains separated by a comma.
+
+Example (make sure no spaces are present if you copy/paste from route 53 web console).
+```
+koz-self.redhatgov.io, *.apps.koz-self.redhatgov.io
+```
+
+Save CSR and account key.
+
+Create the 2 TXT records in Route53
 
 Allow 5 minutes or so to let the records propagate.
 
 Test the TXT records
 
 ```
-$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
-_acme-challenge.koz-certtest.redhatgov.io descriptive text "ZepiokcmBUXZuiwV67hH54hPxhYWiw8677BuL5CfwJI"
+host -t TXT _acme-challenge.koz-self.redhatgov.io
+_acme-challenge.koz-self.redhatgov.io descriptive text "0tF3JPaxMO9slql_T-Ozobq2XThL5Yh5r6vee6U_lDA"
 
-$ host -t TXT _acme-challenge.koz-certtest.redhatgov.io
-_acme-challenge.koz-certtest.redhatgov.io descriptive text "ZepiokcmBUXZuiwV67hH54hPxhYWiw8677BuL5CfwJI"
+host -t TXT _acme-challenge.apps.koz-self.redhatgov.io
+_acme-challenge.apps.koz-self.redhatgov.io descriptive text "_v1W_SaTpAPYwR9ugIG0w5Dq9dPUibesCyToPeFMpgo"
 ```
 
-Copy the cert into fullchain.txt
+Download the cert and private key. You should now have 4 files in total.
 
-Edit this file and split out the cert and CA into separate files.
+```account-key.txt``` - Account key 
+```domain-crt.txt``` - Cert bundle (Main cert + CA)
+```domain-csr.txt``` - CSR (used for renewals)
+```domain-key.txt``` - Private key
 
-```account-key.txt``` - Account key
+The ```domain-crt.txt``` file may be broken into separate cert and CA cert files using an editor. 
+OpenShft 3 will require separate files.
 
-```domain-key.txt``` - Private key or ```privkey.pem```.
+### letsencrypt util output
 
-```domain-crt.txt``` - Also called ```fullchain.pem```. A bundle that contains the cert followed by the CA. This should be broken apart into separate certs (main cert.pem and chain.pem (CA cert)) with a text editor. 
-
-```domain-csr.txt``` - Cert signing request (keep for renewal).
-
-### letsencrypt binary output
+Same files as the web tool produces but they are named different.
 
 ```privkey.pem``` - Private key
-
 ```chain.pem``` - CA cert
-
 ```cert.pem``` - Main Cert
-
 ```fullchain.pem``` - Main + CA cert combo
 
 How to check that a private key matches the cert.
@@ -69,14 +78,46 @@ openssl rsa -noout -modulus -in privkey.pem | openssl md5
 
 ### OpenShift
 
+#### New installs or replacing self-signed after installation.
+
+Create (2) DNS records for the api (1 for internal, 1 for public). Both URLs should point to the same
+load balancer IP.
+
+Set the proper Ansible inventory variables.
+
+```
+# URLs
+openshift_master_cluster_hostname=internal-openshift.example.com
+openshift_master_cluster_public_hostname=openshift.example.com
+
+# API
+openshift_master_overwrite_named_certificates=false
+openshift_master_named_certificates=[{"certfile": "$HOME/certs/koz-self.redhatgov.io/fullchain.pem", "keyfile": "$HOME/certs/koz-ocs.redhatgov.io/privkey.pem", "names": ["koz-self.redhatgov.io"]}]
+
+# Router
+openshift_hosted_router_certificate={"certfile": "$HOME/certs/koz-self.redhatgov.io/cert.pem", "keyfile": "$HOME/certs/koz-self.redhatgov.io/privkey.pem", "cafile": "$HOME/certs/koz-self.redhatgov.io/chain.pem"}
+```
+
+If the certificates are not new, for example, you want to change existing certificates or replace expired certificates change to the playbook directory and run the following playbook:
+
+```
+ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/redeploy-certificates.yml
+```
+
+#### Changing the publicURL
+
+https://access.redhat.com/solutions/2362011
+
+#### Upgrades 
+
+Replacing **existing** named certificates.
+
 #### Router
 
 dir: ```/etc/origin/master```
 
 ```privkey.pem``` - Private key
-
 ```chain.pem``` - CA cert
-
 ```cert.pem``` - Main Cert
 
 ```
