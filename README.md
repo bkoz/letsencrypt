@@ -73,7 +73,6 @@ openssl x509 -noout -modulus -in fullchain.pem | openssl md5
 openssl rsa -noout -modulus -in privkey.pem | openssl md5
 (stdin)= 5d3f4caa1fc264d2dc8064fcb58a9a74
 ```
-
 [https://kb.wisc.edu/middleware/4064](https://kb.wisc.edu/middleware/4064)
 
 ### OpenShift
