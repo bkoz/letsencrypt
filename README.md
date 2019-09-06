@@ -85,7 +85,7 @@ load balancer IP.
 Set the proper Ansible inventory variables.
 
 ```
-# URLs
+# URLs (These should always be done in case named certs need to be added after install)
 openshift_master_cluster_hostname=internal-openshift.example.com
 openshift_master_cluster_public_hostname=openshift.example.com
 
