@@ -103,7 +103,7 @@ If the certificates are not new, for example, you want to change existing certif
 ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/redeploy-certificates.yml
 ```
 
-#### Changing the publicURL
+#### Changing the masterURL
 
 https://access.redhat.com/solutions/2362011
 
